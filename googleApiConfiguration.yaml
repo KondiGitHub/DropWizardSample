@@ -1,0 +1,35 @@
+googleApiKey: 1a421c6750c24b049cd1cf522a0622dc
+googleHeadLineEndpoint: https://newsapi.org/v2/top-headlines
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 7070
+
+  adminConnectors:
+    - type: http
+      port: 8070
+
+logging:
+  level: INFO
+  loggers:
+    "com.googleapi": INFO
+  appenders:
+    - type: file
+      currentLogFilename: /log/dwServicel.log
+      archivedLogFilenamePattern: /log/dwService-%d.log.gz
+      archivedFileCount: 5
+  appenders:
+    - type: console
+
+tenacity:
+  googleSvcCommand:
+    executionIsolationThreadTimeoutInMillis: 2000
+    threadpool:
+      threadPoolCoreSize: 30
+
+swagger:
+  resourcePackage: com.googleApi.resource
+  schemes:
+    - https
+    - http
